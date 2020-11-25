@@ -1,0 +1,11 @@
+<h2>My Search History</h2>
+
+<section>
+    <button mat-raised-button color="accent" (click)="goToSearchParams()">New Search</button>
+</section>
+
+<mat-divider></mat-divider>
+
+<mat-nav-list>
+    <a mat-list-item [routerLink]="['/search', search.type, search.q]" *ngFor="let search of searches">{{search.q}}: {{search.type}}</a>
+ </mat-nav-list>

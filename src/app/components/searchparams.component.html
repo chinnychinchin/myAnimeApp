@@ -1,0 +1,21 @@
+<form [formGroup] = "searchForm">
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Title:</mat-label>
+        <input matInput formControlName="title">
+    </mat-form-field>
+    
+    <br>
+
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="Anime" checked (click)="setType('anime')">Anime</mat-button-toggle>
+        <mat-button-toggle value="Manga" (click)="setType('manga')">Manga</mat-button-toggle>
+    </mat-button-toggle-group>
+    
+    <br><br>
+    <button mat-stroked-button color="primary" [disabled]="searchForm.invalid" (click)="onSave()">Save</button>
+    <button mat-stroked-button color="accent" (click)="onSubmit()" [disabled]="searchForm.invalid">Search</button>
+
+</form>
+
+
