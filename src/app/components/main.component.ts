@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { AnimationOptions } from 'ngx-lottie';
 
@@ -13,12 +13,15 @@ export class MainComponent implements OnInit {
     path: '/assets/cubes.json',
   };
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private ngZone: NgZone) { }
 
   ngOnInit(): void {
   }
 
-  goToList($event) {
-    this.router.navigate(['/searchhistory'])
+  goToList() {
+    this.ngZone.run(() => {
+      this.router.navigate(['/searchhistory'])
+    })
   }
+  
 }

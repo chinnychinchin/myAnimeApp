@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Search } from '../models';
-import { Searchsvc } from '../searchHistory';
+import { normaliseSearch, Searchsvc } from '../searchHistory';
 
 @Component({
   selector: 'app-searchparams',
@@ -26,18 +26,18 @@ export class SearchparamsComponent implements OnInit {
     title: this.fb.control('', [Validators.required]),
   })
 
-  onSubmit() {
-    this.navigate();
+  goToResults() {
+    this.router.navigate(['/search', this.type, normaliseSearch(this.searchForm.value['title'])])
   }
 
-  private navigate() {
-    return this.router.navigate(['/search', this.type, this.searchForm.value['title']])
-  }
 
   async onSave(){
-    const search: Search = {type:this.type, q: this.searchForm.value['title']}
-    //
-    await this.searchSvc.addSearch(search);
-    this.navigate()
+    const search: Search = {type:this.type, q: normaliseSearch(this.searchForm.value['title'])}
+    const isThere = await this.searchSvc.searchDb(search);
+    if (!isThere) {
+      await this.searchSvc.addSearch(search);
+    }
+    this.goToResults()
   }
+  
 }

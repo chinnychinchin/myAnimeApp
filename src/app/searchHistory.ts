@@ -16,6 +16,9 @@ export class Searchsvc extends Dexie {
         this.version(1).stores({
             search: '++id'
         })
+        this.version(2).stores({
+            search: '++id,q'
+        })
 
         this.search = this.table('search')
     }
@@ -23,21 +26,21 @@ export class Searchsvc extends Dexie {
     //Methods
 
     //save
-    async addSearch(s: Search) : Promise<any> {
+    addSearch(s: Search) : Promise<any> {
         s.q = normaliseSearch(s.q)
-        return await this.search.add(s);
+        return this.search.add(s);
     }
 
     //retrieve all history
-    async getSearchHistory() : Promise<any> {
-        return await this.search.toArray();
+    getSearchHistory() : Promise<any> {
+        return this.search.toArray();
     }
     
     //find documents
-    // searchDb(s :Search): Promise<Search> {
+    searchDb(s :Search): Promise<any> {
 
-    //     const searchFunc = 
-    //     return this.search.where("q").equals(s.q).and(doc => doc.type == s.type)
-    // }
+        return this.search.where('q').equals(s.q).and(doc => doc.type == s.type).count()
+        
+    }
 
 } 

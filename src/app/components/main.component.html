@@ -1,5 +1,5 @@
 <div class="row">
     <div class="col">
-        <ng-lottie [options]="options" width="600px" (click)="goToList($event)"></ng-lottie>
+        <ng-lottie [options]="options" width="600px" (click)="goToList()" (loopComplete)="goToList()"></ng-lottie>
     </div>
 </div>
