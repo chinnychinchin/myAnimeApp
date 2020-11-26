@@ -22,7 +22,7 @@ export class ResultsComponent implements OnInit {
     this.canShare = this.webshare.canShare()
     this.type = this.activatedRoute.snapshot.params.type;
     this.q = this.activatedRoute.snapshot.params.q;
-    this.apiRequest().then(result => { this.results = result['results']; console.log(this.results)})
+    this.apiRequest().then(result => this.results = result['results'])
   }
 
 

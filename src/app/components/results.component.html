@@ -3,14 +3,22 @@
 <h2>Q: {{q}}</h2>
 
 <button mat-stroked-button color="accent" [routerLink]="['/searchhistory']">Home</button>
+ 
 
-<mat-nav-list>
-    <mat-list-item mat-list-item *ngFor="let result of results">
-        <a>{{ result.title }}</a>
-        <button mat-icon-button color="accent" (click)="shareThis(result.mal_id)" aria-label="Example icon button with a menu icon">
-            <mat-icon>share</mat-icon>
-        </button>
-    </mat-list-item>
- </mat-nav-list>
+<div fxLayout="row" fxLayoutGap="10px">
+    <section *ngFor="let result of results">
+        <mat-card >
+            <mat-card-title>
+                {{ result.title }}
+            </mat-card-title>
+            <img mat-card-image [src]="result.image_url" style="width: 200px;" alt="Not found">
+            <mat-card-content>{{result.synopsis}}</mat-card-content>
+            <mat-card-actions>
+                <button [ngClass]="{'hide':'canShare'}" mat-icon-button color="accent" (click)="shareThis(result.mal_id)" aria-label="Example icon button with a menu icon">
+                    <mat-icon>share</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </section>
+</div>
 
- <!-- [ngClass]="{'hide':'canShare'}"  -->
