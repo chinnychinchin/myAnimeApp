@@ -19,26 +19,28 @@ export class ResultsComponent implements OnInit {
   canShare = false
 
   ngOnInit(): void {
-    this.canShare = this.webshare.canShare()
+
+    this.canShare = this.webshare.canShare();
     this.type = this.activatedRoute.snapshot.params.type;
     this.q = this.activatedRoute.snapshot.params.q;
-    this.apiRequest().then(result => this.results = result['results'])
+    
+    this.apiRequest().then(result => {this.results = result['results']; console.log(this.results)})
   }
 
 
   private apiRequest() {
 
-    const params = new HttpParams().set('q', this.q.replace(' ', '%'))
+    const params = new HttpParams().set('q', this.q)
     return this.http.get(`https://api.jikan.moe/v3/search/${this.type}`, {params: params}).toPromise()
   }
 
   shareThis(id) {
-
-    console.log(id) //21
     const r = this.results.find(v =>  v.mal_id == id) //r = { }
-    console.log('>>> r =', r)
+    //console.log('>>> r =', r)
     this.webshare.share({
-      title: r['title']
+      title: r['title'],
+      text: r['synopsis'],
+      url: r['url']
     }).catch(e => {console.log(e)} )
   }
 

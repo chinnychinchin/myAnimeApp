@@ -13,11 +13,17 @@ export class SearchhistoryComponent implements OnInit {
   constructor(private router: Router, private searchSvc: Searchsvc) { }
 
   searches: Search[]
+
   ngOnInit(): void {
     this.searchSvc.getSearchHistory().then(result => { this.searches = result })
   }
 
   goToSearchParams() {
     this.router.navigate(['/searchparams'])
+  }
+
+  onDelete(id) {
+    this.searchSvc.deleteSearch(id);
+    this.searchSvc.getSearchHistory().then(result => { this.searches = result })
   }
 }

@@ -10,7 +10,7 @@ import { AnimationOptions } from 'ngx-lottie';
 export class MainComponent implements OnInit {
 
   options: AnimationOptions = {
-    path: '/assets/cubes.json',
+    path: '/assets/no-face-baby-spirited-away.json',
   };
 
   constructor(private router: Router, private ngZone: NgZone) { }

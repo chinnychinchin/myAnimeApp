@@ -1,24 +1,29 @@
-<h1>Your search:</h1>
-<h2>Type: {{type}}</h2>
-<h2>Q: {{q}}</h2>
+<nav class="nav navbar-expand navbar-light d-flex justify-content-between" style="background-color: #e3f2fd;">
+    <h3 class="navbar-brand" style="text-transform: capitalize;">
+        {{type}}: {{q}}
+    </h3>
+    <button type="button" class="btn btn-outline-primary" [routerLink]="['/searchhistory']">Home</button>
+</nav>
 
-<button mat-stroked-button color="accent" [routerLink]="['/searchhistory']">Home</button>
- 
 
-<div fxLayout="row" fxLayoutGap="10px">
-    <section *ngFor="let result of results">
-        <mat-card >
-            <mat-card-title>
-                {{ result.title }}
-            </mat-card-title>
-            <img mat-card-image [src]="result.image_url" style="width: 200px;" alt="Not found">
-            <mat-card-content>{{result.synopsis}}</mat-card-content>
-            <mat-card-actions>
-                <button [ngClass]="{'hide':'canShare'}" mat-icon-button color="accent" (click)="shareThis(result.mal_id)" aria-label="Example icon button with a menu icon">
-                    <mat-icon>share</mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </section>
+<div class="row mt-4">
+    <div class="col-12 col-lg-3" *ngFor="let result of results">
+        <div class="card">
+            <img [src]="result.image_url" class="card-img-top mx-auto flex-grow" alt="img not found">
+            <div class="card-body">
+                <h5 class="card-title">{{ result.title }}</h5>
+                <p class="card-text">{{result.synopsis}}</p>
+                <div>
+                    <a [href]="result.url" target="_blank" class="btn btn-outline-primary">Go to site</a>
+                    <button mat-icon-button color="accent" (click)="shareThis(result.mal_id)" aria-label="Example icon button with a menu icon" style="margin-left: 10px;">
+                        <mat-icon>share</mat-icon>
+                    </button>
+                </div>
+                
+            </div>   
+        </div>  
+    </div>
 </div>
+
+
 

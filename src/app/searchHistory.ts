@@ -31,8 +31,15 @@ export class Searchsvc extends Dexie {
         return this.search.add(s);
     }
 
+    //delete 
+    deleteSearch(id: string) : Promise<any> {
+        return this.search.where('id').equals(id).delete()
+    }
+
+
+
     //retrieve all history
-    getSearchHistory() : Promise<any> {
+    getSearchHistory() : Promise<Search[]> {
         return this.search.toArray();
     }
     

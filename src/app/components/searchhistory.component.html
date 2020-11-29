@@ -1,12 +1,30 @@
-<h2>My Search History</h2>
+<div class="row mt-4 d-flex">
+    <div class="col-6">
+       <h3 class="font-weight-light"><em>Search History</em></h3>
+    </div>
+    <div class="col-6">
+       <button type="button" class="btn btn-outline-primary mt-1" (click)="goToSearchParams()">New Search</button>
+    </div>
+</div>
 
-<section>
-    <button mat-raised-button color="accent" (click)="goToSearchParams()">New Search</button>
-</section>
+<div class="list-group mt-2">
+    <a class="list-group-item  list-group-item-action" *ngFor="let search of searches">
+        <div class="row">
+            <div class="col" [routerLink]="['/search', search.type, search.q]" >
+                <h5 class="mb-1" style="text-transform: capitalize;">{{search.q}}</h5>
+                <p class="mb-1 text-warning" style="text-transform: capitalize;">{{search.type}}</p>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger" (click)="onDelete(search.id)">Delete</button>
+            </div>
+        </div>
+    </a>
+</div>
 
-<mat-divider></mat-divider>
-
-<mat-nav-list>
-    <a mat-list-item [routerLink]="['/search', search.type, search.q]" *ngFor="let search of searches">{{search.q}}: {{search.type}}</a>
- </mat-nav-list>
-
+<div class="row mt-2" *ngIf="searches == undefined || searches.length == 0">
+    <div class="col">
+        <h4>
+            <small class="text-muted"><em>No recent search history. Start a new search to begin.</em></small>
+        </h4>
+    </div>
+</div>
