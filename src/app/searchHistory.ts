@@ -50,4 +50,13 @@ export class Searchsvc extends Dexie {
         
     }
 
+    retrieveResults(s: Search): Promise<Search[]> {
+        return this.search.where('q').equals(s.q).and(doc => doc.type == s.type).toArray()
+    }
+
+    storeAnimeResults(s: Search) : Promise<any> {
+        return this.search.where('id').equals(s.id).modify(s)
+         
+    }
+
 } 

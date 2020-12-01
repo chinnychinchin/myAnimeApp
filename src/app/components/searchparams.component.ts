@@ -32,7 +32,7 @@ export class SearchparamsComponent implements OnInit {
 
 
   async onSave(){
-    const search: Search = {type:this.type, q: normaliseSearch(this.searchForm.value['title'])}
+    const search: Search = {type:this.type, q: normaliseSearch(this.searchForm.value['title']), date: new Date()}
     const isThere = await this.searchSvc.searchDb(search);
     if (!isThere) {
       await this.searchSvc.addSearch(search);

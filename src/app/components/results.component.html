@@ -1,13 +1,13 @@
 <nav class="nav navbar-expand navbar-light d-flex justify-content-between" style="background-color: #e3f2fd;">
     <h3 class="navbar-brand" style="text-transform: capitalize;">
-        {{type}}: {{q}}
+        {{search.type}}: {{search.q}}
     </h3>
     <button type="button" class="btn btn-outline-primary" [routerLink]="['/searchhistory']">Home</button>
 </nav>
 
 
 <div class="row mt-4">
-    <div class="col-12 col-lg-3" *ngFor="let result of results">
+    <div class="col-12 col-lg-3" *ngFor="let result of results; index as idx">
         <div class="card">
             <img [src]="result.image_url" class="card-img-top mx-auto flex-grow" alt="img not found">
             <div class="card-body">
@@ -15,11 +15,14 @@
                 <p class="card-text">{{result.synopsis}}</p>
                 <div>
                     <a [href]="result.url" target="_blank" class="btn btn-outline-primary">Go to site</a>
-                    <button mat-icon-button color="accent" (click)="shareThis(result.mal_id)" aria-label="Example icon button with a menu icon" style="margin-left: 10px;">
+                    <button mat-icon-button color="accent" [ngClass]="{'hide': !canShare}" (click)="shareThis(idx)" aria-label="Example icon button with a menu icon" style="margin-left: 10px;">
                         <mat-icon>share</mat-icon>
                     </button>
                 </div>
                 
+            </div>
+            <div class="card-footer text-muted" *ngIf="daysAgo !==undefined">
+                {{daysAgo}} days ago
             </div>   
         </div>  
     </div>
